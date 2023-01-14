@@ -4,6 +4,7 @@ const canvas = document.getElementsByTagName("canvas")[0];
 // setting height and width of canvas by widows' dimensions
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+var score = 0 ;
 
 // getting canvas drawing context
 var context = canvas.getContext("2d");
@@ -21,10 +22,10 @@ for (var i = 0; i < 5; i++) {
 // console.log(pipes);
 
 setInterval(function () {
-
-    if(collided){
-        return ;
-    }
+  if (collided) {
+    // alert("game over");
+    window.location.reload() ;
+  }
 
   context.clearRect(0, 0, canvas.width, canvas.height);
   velocity = velocity + gravity;
@@ -32,7 +33,7 @@ setInterval(function () {
   if (fromTop >= canvas.height - 40) {
     fromTop = window.innerHeight - 40;
   }
-//   console.log(fromTop);
+  //   console.log(fromTop);
 
   // drwaing pipes
 
@@ -47,8 +48,8 @@ setInterval(function () {
       pipe.bottom.height,
     );
 
-    checkCollision({x: 200, y: fromTop, width: 40, height: 40}, pipe.top ) ;
-    checkCollision({x: 200, y: fromTop, width: 40, height: 40}, pipe.bottom ) ;
+    checkCollision({ x: 200, y: fromTop, width: 40, height: 40 }, pipe.top);
+    checkCollision({ x: 200, y: fromTop, width: 40, height: 40 }, pipe.bottom);
 
     // moving pipes
     pipe.top.x = pipe.top.x - 1;
@@ -58,18 +59,16 @@ setInterval(function () {
     if (pipe.top.x < 0) {
       pipes.splice(i, 1);
       pipes.push(getPipe());
+      score ++ ;
+      console.log("Your Score: " + score);
     }
 
-   
-    // console.log(pipes);
   }
 
   context.fillStyle = "red";
   context.fillRect(200, fromTop, 40, 40);
 
-
-console.log(collided)
-
+  console.log(collided);
 }, 10);
 
 window.addEventListener("keydown", function () {
@@ -110,7 +109,7 @@ function getPipe() {
 }
 
 function checkCollision(rect1, rect2) {
-//   collided = false;
+  //   collided = false;
   if (
     rect1.x < rect2.x + rect2.width &&
     rect1.x + rect1.width > rect2.x &&
