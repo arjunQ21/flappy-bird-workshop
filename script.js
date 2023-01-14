@@ -10,8 +10,15 @@ var context = canvas.getContext("2d");
 var fromTop = canvas.height / 2;
 var velocity = 0;
 var gravity = 0.1;
+var horizontalPipeSpacing = 150 ;
 
-context.fillRect(20, fromTop, 80, 80);
+// make array of pipes
+var pipes = [] ;
+for(var i = 0 ; i < 5; i++){
+    pipes.push(getPipe());
+}
+console.log(pipes)
+
 
 setInterval(function () {
   context.clearRect(0, 0, canvas.width, canvas.height);
@@ -22,16 +29,21 @@ setInterval(function () {
   }
   console.log(fromTop);
 
-  // drwaing pipe
-  var pipe = getPipe();
-  context.fillStyle = "green";
-  context.fillRect(pipe.top.x, pipe.top.y, pipe.top.width, pipe.top.height);
-  context.fillRect(
-    pipe.bottom.x,
-    pipe.bottom.y,
-    pipe.bottom.width,
-    pipe.bottom.height,
-  );
+  // drwaing pipes
+
+  for(var i = 0 ; i < pipes.length; i++){
+        var pipe = pipes[i] ;
+        context.fillStyle = "green";
+        context.fillRect(pipe.top.x, pipe.top.y, pipe.top.width, pipe.top.height);
+        context.fillRect(
+          pipe.bottom.x,
+          pipe.bottom.y,
+          pipe.bottom.width,
+          pipe.bottom.height,
+        );
+
+  }
+
   context.fillStyle = "red";
   context.fillRect(20, fromTop, 80, 80);
 }, 10);
@@ -41,7 +53,11 @@ window.addEventListener("keydown", function () {
   velocity = -8;
 });
 
+
+
 function getPipe() {
+
+    horizontalPipeSpacing = horizontalPipeSpacing + horizontalPipeSpacing ;
   function randomIntFromInterval(min, max) {
     // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -49,16 +65,16 @@ function getPipe() {
 
   var topPipeHeight = randomIntFromInterval(0, canvas.height / 2);
 
-  const verticalGap = 100;
+  const verticalGap = 200;
   return {
     top: {
-      x: 10,
+      x: horizontalPipeSpacing,
       y: 0,
       width: 40,
       height: topPipeHeight,
     },
     bottom: {
-      x: 10,
+      x: horizontalPipeSpacing,
       y: topPipeHeight + verticalGap,
       width: 40,
       height: canvas.height - topPipeHeight - verticalGap,
