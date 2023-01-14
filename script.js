@@ -7,34 +7,17 @@ canvas.height = window.innerHeight;
 
 // getting canvas drawing context
 var context = canvas.getContext("2d");
+var fromTop = canvas.height / 2 ;
+var velocity = 1 ;
 
-// setting filling color
-context.fillStyle = "red";
+context.fillStyle = "red" ;
 
-var xDistance = 0;
+context.fillRect(20, fromTop, 80, 80)
 
-xDistance = 78;
-// cant assign variables like this
-// 78 = xDistance ;
+setInterval(function(){
 
-// drawing our first rectangle
-context.fillRect(xDistance, 100, 100, 50);
+context.clearRect(0, 0, canvas.width, canvas.height);
+fromTop = fromTop + velocity ;
+context.fillRect(20, fromTop, 80, 80)
 
-// running functions in certain intervals
-setInterval(function () {
-  xDistance = xDistance + 5;
-  console.log(xDistance);
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  context.fillRect(xDistance, 100, 100, 50);
-  context.fillRect(90, xDistance, 10, 50);
-
-}, 100);
-
-function sayHi() {
-  console.log("hi");
-}
-
-
-window.addEventListener("keydown", function(){
-    console.log("Some keys pressed from keyboard")
-})
+}, 100)
