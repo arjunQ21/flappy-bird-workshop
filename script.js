@@ -32,6 +32,9 @@ setInterval(function () {
   fromTop = fromTop + velocity;
   if (fromTop >= canvas.height - 40) {
     fromTop = window.innerHeight - 40;
+  }else if(fromTop < 0){
+    fromTop = 0;
+    velocity = 0 ;
   }
   //   console.log(fromTop);
 
