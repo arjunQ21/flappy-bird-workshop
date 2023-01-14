@@ -7,17 +7,15 @@ canvas.height = window.innerHeight;
 
 // getting canvas drawing context
 var context = canvas.getContext("2d");
-var fromTop = canvas.height / 2 ;
-var velocity = 1 ;
+var fromTop = canvas.height / 2;
+var velocity = 1;
 
-context.fillStyle = "red" ;
+context.fillStyle = "red";
 
-context.fillRect(20, fromTop, 80, 80)
+context.fillRect(20, fromTop, 80, 80);
 
-setInterval(function(){
-
-context.clearRect(0, 0, canvas.width, canvas.height);
-fromTop = fromTop + velocity ;
-context.fillRect(20, fromTop, 80, 80)
-
-}, 100)
+setInterval(function () {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  fromTop = fromTop + 1;
+  context.fillRect(20, fromTop, 80, 80);
+}, 100);
